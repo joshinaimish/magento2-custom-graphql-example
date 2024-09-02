@@ -1,0 +1,33 @@
+type Query {
+    getAllProductsCollection: NxtechProductsCollection
+        @resolver(
+            class: "Nxtech\\CustomGraphql\\Model\\Resolver\\GetAllProducts"
+        )
+
+    getProductsById(
+        id: Int @doc(description: "Products ID. Must be an integer")
+    ): NxtechProductsById
+        @resolver(
+            class: "Nxtech\\CustomGraphql\\Model\\Resolver\\GetProductsById"
+        )
+        @doc(description: "Retrieve a Products by id.")
+}
+type NxtechProductsCollection
+    @doc(description: "Get All Nxtech Products Details") {
+    allProducts: [AllNxtechProductsCollection]
+        @doc(
+            description: "An array containing the all the Nxtech Products Collection"
+        )
+}
+
+type AllNxtechProductsCollection {
+    entity_id: Int @doc(description: "Product Id")
+    name: String @doc(description: "Product Name")
+    description: String @doc(description: "Product Description")
+}
+
+type NxtechProductsById {
+    id: Int
+    name: String
+    description: String
+}
